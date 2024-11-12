@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,6 +14,29 @@
     }
 
     body {
-        @apply bg-slate-900 overflow-hidden font-mono;
+        @apply bg-dark-body font-display;
+    }
+}
+
+
+@layer components {
+    .content-container {
+        @apply max-w-3xl w-full mx-auto space-y-5;
+    }
+
+    .content-title {
+        @apply text-3xl lg:text-5xl text-light font-bold;
+    }
+
+    .content-body {
+        @apply space-y-3 py-6 px-6 bg-gray-dark bg-opacity-20 relative;
+    }
+
+    .content-body::after {
+        @apply content-[''] absolute w-1.5 h-full top-0 left-0 bg-primary;
+    }
+
+    .content-body p {
+        @apply font-normal text-base lg:text-lg text-light space-y-3;
     }
 }
