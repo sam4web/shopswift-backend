@@ -1,0 +1,11 @@
+extends _layout
+
+block variables
+  - const title = "404 | Resource not found";
+
+block content
+    section(class='content-container text-white')
+        h1(class='content-title text-red-500 font-medium') 404 Resource not found!
+        p(class='content-body')
+            | The resource you're looking for was not found on this server. It may have been moved or deleted, or
+            | the request URL may be incorrect. Please verify the endpoint or contact support for assistance.
