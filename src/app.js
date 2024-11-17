@@ -27,7 +27,7 @@ app.use(cookieParser());
 // views & static files
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "..", "public")));
 
 // routes
 app.use("/", require("./routes/index.route"));

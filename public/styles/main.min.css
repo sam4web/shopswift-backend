@@ -651,14 +651,6 @@ body{
   }
 }
 
-.visible{
-  visibility: visible;
-}
-
-.collapse{
-  visibility: collapse;
-}
-
 .absolute{
   position: absolute;
 }
@@ -684,50 +676,16 @@ body{
   margin-right: auto;
 }
 
-.my-11{
-  margin-top: 2.75rem;
-  margin-bottom: 2.75rem;
-}
-
-.my-6{
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
 .block{
   display: block;
-}
-
-.flex{
-  display: flex;
-}
-
-.table{
-  display: table;
-}
-
-.contents{
-  display: contents;
-}
-
-.hidden{
-  display: none;
 }
 
 .h-full{
   height: 100%;
 }
 
-.h-screen{
-  height: 100vh;
-}
-
 .min-h-screen{
   min-height: 100vh;
-}
-
-.w-1{
-  width: 0.25rem;
 }
 
 .w-1\.5{
@@ -742,58 +700,14 @@ body{
   width: 100vw;
 }
 
-.max-w-2xl{
-  max-width: 42rem;
-}
-
 .max-w-3xl{
   max-width: 48rem;
-}
-
-.max-w-6xl{
-  max-width: 72rem;
-}
-
-.max-w-7xl{
-  max-width: 80rem;
-}
-
-.max-w-md{
-  max-width: 28rem;
-}
-
-.max-w-xl{
-  max-width: 36rem;
-}
-
-.border-collapse{
-  border-collapse: collapse;
-}
-
-.transform{
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.resize{
-  resize: both;
-}
-
-.justify-center{
-  justify-content: center;
 }
 
 .space-y-3 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
-
-.overflow-hidden{
-  overflow: hidden;
-}
-
-.border{
-  border-width: 1px;
 }
 
 .bg-dark-body{
@@ -806,22 +720,12 @@ body{
   background-color: rgb(65 69 88 / var(--tw-bg-opacity));
 }
 
-.bg-slate-900{
-  --tw-bg-opacity: 1;
-  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-20{
   --tw-bg-opacity: 0.2;
 }
 
 .p-0{
   padding: 0px;
-}
-
-.px-12{
-  padding-left: 3rem;
-  padding-right: 3rem;
 }
 
 .px-4{
@@ -834,29 +738,9 @@ body{
   padding-right: 1.5rem;
 }
 
-.py-10{
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-
-.py-20{
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
 .py-24{
   padding-top: 6rem;
   padding-bottom: 6rem;
-}
-
-.py-3{
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-.py-4{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .py-6{
@@ -864,36 +748,14 @@ body{
   padding-bottom: 1.5rem;
 }
 
-.font-display{
-  font-family: Poppins, sans-serif;
-}
-
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
 
-.text-5xl{
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-base{
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-.text-lg{
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.font-bold{
-  font-weight: 700;
-}
-
-.font-extrabold{
-  font-weight: 800;
 }
 
 .font-medium{
@@ -917,23 +779,6 @@ body{
 .text-red-500{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-
-.text-white{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.underline{
-  text-decoration-line: underline;
-}
-
-.outline{
-  outline-style: solid;
-}
-
-.filter{
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition{
