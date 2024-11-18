@@ -3,17 +3,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const path = require("node:path");
 
 const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/connectDB");
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-
 const { errorHandler } = require("./middlewares/error-handler.middleware");
 const { logEvents, logger } = require("./middlewares/logger.middleware.js");
-const path = require("node:path");
 
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 // connect to MongoDB
 connectDB();
@@ -31,6 +30,7 @@ app.use("/", express.static(path.join(__dirname, "..", "public")));
 
 // routes
 app.use("/", require("./routes/index.route"));
+app.use("/api/products", require("./routes/product.route"));
 
 
 // catch 404 and forward to error handler
