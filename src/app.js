@@ -31,6 +31,7 @@ app.use("/", express.static(path.join(__dirname, "..", "public")));
 // routes
 app.use("/", require("./routes/index.route"));
 app.use("/api/products", require("./routes/product.route"));
+app.use("/api/cart", require("./routes/cart.route"));
 
 
 // catch 404 and forward to error handler
@@ -54,5 +55,5 @@ mongoose.connection.once("open", () => {
 // if any connection error occurs
 mongoose.connection.on("error", (err) => {
   console.error(err.message);
-  logEvents(err.message, "mongoError.log");
+  logEvents(err.message, "mongo.error.log");
 });

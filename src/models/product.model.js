@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { categories } = require("../constants");
 const Schema = mongoose.Schema;
 
 const productImageSchema = new Schema({
@@ -28,27 +29,7 @@ const productSchema = new Schema({
   category: {
     type: String,
     required: true,
-    enum: [
-      "apparels-accessories",
-      "automobiles",
-      "beauty-health",
-      "books-learning",
-      "business-industrial",
-      "computers-peripherals",
-      "electronics-tvs-more",
-      "events-happenings",
-      "fresh-veggies-meat",
-      "furnishings-appliances",
-      "jobs",
-      "mobile-phone-accessories",
-      "music-instruments",
-      "pets-adoption-free-stuff",
-      "real-estate",
-      "services",
-      "sports-fitness",
-      "toys-video-games",
-      "travel-tours-packages",
-    ],
+    enum: [...categories],
   },
   image: {
     type: productImageSchema,
