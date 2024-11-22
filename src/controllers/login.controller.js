@@ -2,6 +2,8 @@ const { validatePassword, validateEmail, validateUsername } = require("../utils/
 const User = require("../models/user.model");
 
 
+// @route /api/auth/login
+// @method POST
 const loginController = async (req, res) => {
   let { username, password } = req.body;
   username = username?.trim();

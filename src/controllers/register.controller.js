@@ -2,6 +2,8 @@ const { validatePassword, validateEmail, validateUsername } = require("../utils/
 const User = require("../models/user.model");
 
 
+// @route /api/auth/register
+// @method POST
 const registerController = async (req, res) => {
   let { username, email, password } = req.body;
   username = username?.trim();
