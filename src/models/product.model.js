@@ -36,7 +36,9 @@ const productSchema = new Schema({
     required: true,
   },
   // created_by: { type: Schema.Types.ObjectId, ref: "user" },
-}, { timestamps: true });
+}, {
+  timestamps: true,
+});
 
 
 module.exports = mongoose.model("Product", productSchema);
