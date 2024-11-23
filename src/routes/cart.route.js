@@ -1,11 +1,16 @@
 const express = require("express");
+const router = express.Router();
+
 const {
   getProductsFromCart,
   addProductToCart,
   getPricingDetail,
   removeProductFromCart,
 } = require("../controllers/cart.controller");
-const router = express.Router();
+const { verifyToken } = require("../middlewares/verify-token.middleware");
+
+
+router.use(verifyToken);
 
 router.route("/")
   .get(getProductsFromCart)

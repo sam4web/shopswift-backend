@@ -8,7 +8,7 @@ const { isValidObjectId } = require("mongoose");
 const getAllProducts = async (req, res) => {
   const products = await Product.find({}).select("-__v").lean();
   if (!products.length)
-    return res.status(404).json({ message: "No product found." });
+    return res.status(404).json({ message: "There are no products available." });
   return res.json(products);
 };
 
@@ -21,7 +21,7 @@ const getSingleProduct = async (req, res) => {
     return res.status(400).send({ message: "Invalid ID provided. Please check and try again." });
   const product = await Product.findById(id).select("-__v").lean();
   if (!product)
-    return res.status(404).send({ message: "No product found." });
+    return res.status(404).send({ message: "No product with the specified ID was found." });
   return res.json(product);
 };
 
@@ -80,7 +80,7 @@ const updateProduct = async (req, res) => {
 
   const product = await Product.findById(id).lean();
   if (!product)
-    return res.status(404).send({ message: "No product found." });
+    return res.status(404).send({ message: "No product with the specified ID was found." });
 
   const doesProductBelongs = product.createdBy.equals(req.userId);
   if (!doesProductBelongs)
