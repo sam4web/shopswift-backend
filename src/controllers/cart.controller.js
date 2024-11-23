@@ -1,7 +1,6 @@
 const Cart = require("../models/cart.model");
 const Product = require("../models/product.model");
 const { isValidObjectId } = require("mongoose");
-const { tax, shipping } = require("../constants");
 
 
 // @route /api/cart
@@ -9,14 +8,14 @@ const { tax, shipping } = require("../constants");
 const getProductsFromCart = async (req, res) => {
   const cart = await Cart.findOne({ user: req.userId }).lean();
 
-  // check if items exists in cart
+  // check if items exist in cart
   if (!cart?.products.length)
     return res.status(404).json({ message: "You have no items in your cart." });
 
   try {
     // find products by id and return
     const productsPromiseArray = cart.products.map(async product =>
-      await Product.findById(product).select("-__v").lean(),
+      await Product.findById(product).select("-__v -createdBy").lean(),
     );
     const products = await Promise.all(productsPromiseArray);
     return res.json(products);

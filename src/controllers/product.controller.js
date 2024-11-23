@@ -6,7 +6,7 @@ const { isValidObjectId } = require("mongoose");
 // @route /api/products
 // @method GET
 const getAllProducts = async (req, res) => {
-  const products = await Product.find({}).select("-__v").lean();
+  const products = await Product.find({}).select("-__v -createdBy").lean();
   if (!products.length)
     return res.status(404).json({ message: "There are no products available." });
   return res.json(products);
@@ -126,9 +126,9 @@ const deleteProduct = async (req, res) => {
 // @route /api/auth/products
 // @method GET
 const getProductsByUser = async (req, res) => {
-  const products = await Product.find({ createdBy: req.userId }).select("-__v").lean();
+  const products = await Product.find({ createdBy: req.userId }).select("-__v -createdBy").lean();
   if (!products.length)
-    return res.status(404).json({ message: "No product found." });
+    return res.status(404).json({ message: "There are no products available." });
   return res.json(products);
 };
 
