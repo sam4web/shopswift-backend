@@ -35,10 +35,12 @@ const productSchema = new Schema({
     type: productImageSchema,
     required: true,
   },
-  // created_by: { type: Schema.Types.ObjectId, ref: "user" },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 }, {
   timestamps: true,
 });
-
 
 module.exports = mongoose.model("Product", productSchema);

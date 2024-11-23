@@ -12,9 +12,14 @@ const {
 const { fileExists } = require("../middlewares/file-exists.middleware");
 const { fileExtension } = require("../middlewares/file-extension.middleware");
 const { fileSize } = require("../middlewares/file-size.middleware");
+const { verifyToken } = require("../middlewares/verify-token.middleware");
+
+router.get("/", getAllProducts);
+router.get("/:id", getSingleProduct);
+
+router.use(verifyToken);
 
 router.route("/")
-  .get(getAllProducts)
   .post(
     fileUpload({ createParentPath: true }),
     fileExists,
@@ -24,7 +29,6 @@ router.route("/")
   );
 
 router.route("/:id")
-  .get(getSingleProduct)
   .delete(deleteProduct)
   .patch(
     fileUpload({ createParentPath: true }),

@@ -8,7 +8,7 @@ const { isValidObjectId } = require("mongoose");
 const getAllProducts = async (req, res) => {
   const products = await Product.find({}).lean();
   if (!products.length)
-    return res.status(404).send("No product found.");
+    return res.status(404).json({ message: "No product found." });
   return res.json(products);
 };
 
@@ -49,7 +49,7 @@ const createProduct = async (req, res) => {
   };
 
   try {
-    const product = await Product.create({ image, name, price, description, category });
+    const product = await Product.create({ image, name, price, description, category, createdBy: req.userId });
     return res.json(product);
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -60,9 +60,9 @@ const createProduct = async (req, res) => {
 // @route /api/products/:id
 // @method PATCH
 const updateProduct = async (req, res) => {
+  let { name, price, description, category } = req.body;
   const id = req.params.id;
   const imageFile = req.files.image;
-  let { name, price, description, category } = req.body;
 
   name = name?.trim();
   description = description?.trim();
@@ -73,14 +73,18 @@ const updateProduct = async (req, res) => {
     return res.status(400).send({ message: "Invalid ID provided. Please check and try again." });
 
   if (isNaN(price) || price < 0)
-    return res.status(400).json({ "message": "Please enter a valid price number." });
+    return res.status(400).json({ message: "Please enter a valid price number." });
 
   if (![name, price, category].every(Boolean))
-    return res.status(400).json({ "message": "All fields are required. Please fill all fields." });
+    return res.status(400).json({ message: "All fields are required. Please fill all fields." });
 
-  const product = await Product.findById(id).select("-__v").lean();
+  const product = await Product.findById(id).lean();
   if (!product)
     return res.status(404).send({ message: "No product found." });
+
+  const doesProductBelongs = product.createdBy.equals(req.userId);
+  if (!doesProductBelongs)
+    return res.status(400).send({ message: "You are not authorized to update this item as it does not belong to you." });
 
   const image = {
     name: imageFile.name,
@@ -106,10 +110,25 @@ const deleteProduct = async (req, res) => {
   const id = req.params.id;
   if (!isValidObjectId(id))
     return res.status(400).send({ message: "Invalid ID provided. Please check and try again." });
-  const product = await Product.findByIdAndDelete(id);
+  const product = await Product.findById(id).lean();
   if (!product)
     return res.status(404).send({ message: "No product found." });
+
+  const doesProductBelongs = product.createdBy.equals(req.userId);
+  if (!doesProductBelongs)
+    return res.status(400).send({ message: "You are not authorized to delete this item as it does not belong to you." });
+
+  await Product.findByIdAndDelete(id).lean();
   return res.json({ message: "Product deleted successfully" });
+};
+
+
+// @route /api/auth/products
+// @method GET
+const getProductsByUser = async (req, res) => {
+  const userId = req.userId;
+  console.log(userId);
+  res.sendStatus(204);
 };
 
 module.exports = {
@@ -118,4 +137,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductsByUser,
 };
