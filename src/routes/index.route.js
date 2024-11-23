@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("node:path");
 const router = express.Router();
 
 router.get(["/", "/index", "/index.html"], (req, res) => {
