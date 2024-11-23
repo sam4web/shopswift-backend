@@ -97,22 +97,15 @@ const removeProductFromCart = async (req, res) => {
 // @route /api/cart/pricing
 // @method GET
 const getPricingDetail = async (req, res) => {
-  const cart = await Cart.findOne({ user: req.userId }).lean();
+  const cart = await Cart.findOne({ user: req.userId });
 
   // check if items exists in cart
   if (!cart?.products.length)
     return res.status(404).json({ message: "You have no items in your cart." });
 
   try {
-    // find products by id
-    const productsPromiseArray = cart.products.map(async product =>
-      await Product.findById(product).select("-__v").lean(),
-    );
-    const products = await Promise.all(productsPromiseArray);
-
-    const subTotal = products.reduce((acc, curr) => acc + curr.price, 0);
-    const orderTotal = subTotal + tax + shipping;
-    res.json({ tax, shipping, subTotal, orderTotal });
+    const pricing = await cart.getPricingDetail();
+    return res.json(pricing);
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
