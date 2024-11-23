@@ -71,7 +71,26 @@ const addProductToCart = async (req, res) => {
 
 // @route /api/cart
 // @method DELETE
-const removeProductFromCart = (req, res) => {
+const removeProductFromCart = async (req, res) => {
+  const productId = req.body.product;
+
+  if (!productId)
+    return res.status(400).json({ message: "A product must be provided." });
+
+  const cart = await Cart.findOne({ user: req.userId });
+
+  // check if items exists in cart
+  if (!cart?.products.length)
+    return res.status(404).json({ message: "You have no items in your cart." });
+
+  // check if cart includes product
+  if (!cart.products.includes(productId))
+    return res.status(400).json({ message: "Product does not exist in your cart." });
+
+  // remove product from cart & save
+  cart.products = cart.products.filter(product => !product.equals(productId));
+  cart.save();
+  return res.json({ message: "Product successfully removed from your cart." });
 };
 
 
