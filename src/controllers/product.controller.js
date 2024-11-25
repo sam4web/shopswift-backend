@@ -1,4 +1,5 @@
 const Product = require("../models/product.model");
+const User = require("../models/user.model");
 const base64Encode = require("../utils/base64-encode.util");
 const { isValidObjectId } = require("mongoose");
 
@@ -6,10 +7,17 @@ const { isValidObjectId } = require("mongoose");
 // @route /api/products
 // @method GET
 const getAllProducts = async (req, res) => {
-  const products = await Product.find({}).select("-__v -createdBy").lean();
+  const products = await Product.find({}).select("-__v").lean();
   if (!products.length)
     return res.status(404).json({ message: "There are no products available." });
-  return res.json(products);
+  const productsPromiseArray = products.map(async product => {
+      const user = await User.findById(product.createdBy).lean();
+      product.createdBy = user.username;
+      return product;
+    },
+  );
+  const productsData = await Promise.all(productsPromiseArray);
+  return res.json(productsData);
 };
 
 

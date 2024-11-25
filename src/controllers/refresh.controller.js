@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 
 const refreshController = async (req, res) => {
-  const { refresh: refreshToken } = req.cookies;
+  const { token: refreshToken } = req.cookies;
   if (!refreshToken) return res.status(401).json({ message: "Refresh token must be provided" });
 
   try {
@@ -17,7 +17,7 @@ const refreshController = async (req, res) => {
     const newRefreshToken = await foundUser.generateRefreshToken();
 
     // add refresh token on response cookie
-    res.cookie("refreshToken", newRefreshToken,
+    res.cookie("token", newRefreshToken,
       {
         httpOnly: true,
         maxAge: 5 * 24 * 60 * 60 * 1000,

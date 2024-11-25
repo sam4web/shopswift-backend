@@ -37,7 +37,7 @@ const registerController = async (req, res) => {
     const refreshToken = await createdUser.generateRefreshToken();
 
     // add refresh token on response cookie
-    res.cookie("refresh", refreshToken,
+    res.cookie("token", refreshToken,
       {
         httpOnly: true,
         maxAge: 5 * 24 * 60 * 60 * 1000,
