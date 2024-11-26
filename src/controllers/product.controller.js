@@ -12,7 +12,10 @@ const getAllProducts = async (req, res) => {
     return res.status(404).json({ message: "There are no products available." });
   const productsPromiseArray = products.map(async product => {
       const user = await User.findById(product.createdBy).lean();
-      product.createdBy = user.username;
+      product.createdBy = {
+        username: user.username,
+        id: user._id,
+      };
       return product;
     },
   );
