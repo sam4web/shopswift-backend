@@ -34,6 +34,7 @@ app.use("/api/products", require("./routes/product.route"));
 app.use("/api/cart", require("./routes/cart.route"));
 app.use("/api/order", require("./routes/order.route"));
 app.use("/api/auth", require("./routes/auth.route"));
+app.use("/api/user", require("./routes/user.route"));
 
 
 // catch 404 and forward to error handler
