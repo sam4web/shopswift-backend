@@ -1,7 +1,7 @@
-# SwiftShop Backend
+# ShopSwift Backend
 
-SwiftShop Backend is a feature-rich RESTful API built with **Node.js** and **Express.js**, forming the backbone of the
-SwiftShop e-commerce platform. This backend handles secure user authentication, product and order management, and
+ShopSwift Backend is a feature-rich RESTful API built with **Node.js** and **Express.js**, forming the backbone of the
+ShopSwift e-commerce platform. This backend handles secure user authentication, product and order management, and
 seamless shopping cart functionality. Using **MongoDB** for robust data storage, it ensures an efficient and scalable
 e-commerce experience.
 
