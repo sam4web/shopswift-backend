@@ -124,7 +124,14 @@ const updateProduct = async (req, res) => {
         { new: true },
       );
     }
-    return res.json(updatedProduct);
+    
+    return res.json({
+      ...updatedProduct,
+      createdBy: {
+        username: req.username,
+        id: req.userId,
+      },
+    });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
