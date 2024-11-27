@@ -32,7 +32,6 @@ router.route("/:id")
   .delete(deleteProduct)
   .patch(
     fileUpload({ createParentPath: true }),
-    fileExists,
     fileExtension([".jpg", ".jpeg", ".png"]),
     fileSize,
     updateProduct,

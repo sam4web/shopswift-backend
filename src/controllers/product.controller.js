@@ -61,7 +61,14 @@ const createProduct = async (req, res) => {
 
   try {
     const product = await Product.create({ image, name, price, description, category, createdBy: req.userId });
-    return res.json(product);
+    const newProduct = await Product.findById(product._id).select("-__v -createdBy").lean();
+    return res.json({
+      ...newProduct,
+      createdBy: {
+        username: req.username,
+        id: req.userId,
+      },
+    });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -73,7 +80,7 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   let { name, price, description, category } = req.body;
   const id = req.params.id;
-  const imageFile = req.files.image;
+  const imageFile = req.files ? req.files?.image : null;
 
   name = name?.trim();
   description = description?.trim();
@@ -97,17 +104,26 @@ const updateProduct = async (req, res) => {
   if (!doesProductBelongs)
     return res.status(400).send({ message: "You are not authorized to update this item as it does not belong to you." });
 
-  const image = {
-    name: imageFile.name,
-    data: base64Encode(imageFile.data),
-  };
 
   try {
-    const updatedProduct = await Product.findOneAndUpdate(
-      { _id: id },
-      { image, name, price, description, category },
-      { new: true },
-    );
+    let updatedProduct = null;
+    if (imageFile) {
+      const image = {
+        name: imageFile.name,
+        data: base64Encode(imageFile.data),
+      };
+      updatedProduct = await Product.findOneAndUpdate(
+        { _id: id },
+        { image, name, price, description, category },
+        { new: true },
+      );
+    } else {
+      updatedProduct = await Product.findOneAndUpdate(
+        { _id: id },
+        { name, price, description, category },
+        { new: true },
+      );
+    }
     return res.json(updatedProduct);
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -130,7 +146,7 @@ const deleteProduct = async (req, res) => {
     return res.status(400).send({ message: "You are not authorized to delete this item as it does not belong to you." });
 
   await Product.findByIdAndDelete(id).lean();
-  return res.json({ message: "Product deleted successfully" });
+  return res.sendStatus(204);
 };
 
 

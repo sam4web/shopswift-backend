@@ -16,6 +16,7 @@ const verifyTokenMiddleware = async (req, res, next) => {
     const user = await User.findById(id).lean();
     if (!user) return res.status(401).send("User does not exists.");
     req.userId = id;
+    req.username = user.username;
   } catch (err) {
     return res.status(400).json({ message: `${err.name}: ${err.message}` });
   }
