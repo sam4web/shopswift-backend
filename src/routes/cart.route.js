@@ -14,10 +14,9 @@ router.use(verifyToken);
 
 router.route("/")
   .get(getProductsFromCart)
-  .post(addProductToCart)
-  .delete(removeProductFromCart);
+  .post(addProductToCart);
 
-router.route("/pricing")
-  .get(getPricingDetail);
+router.delete("/:id", removeProductFromCart);
+router.get("/pricing", getPricingDetail);
 
 module.exports = router;

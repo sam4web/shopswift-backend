@@ -53,7 +53,7 @@ const addProductToCart = async (req, res) => {
   // check if cart exists, if no then create one
   if (!existingCart) {
     await Cart.create({ user: userId, products: [productId] });
-    return res.json({ message: "Product successfully added to your cart." });
+    return res.json(product);
   }
 
   // check if product exists in cart
@@ -64,14 +64,17 @@ const addProductToCart = async (req, res) => {
   // add product to cart
   existingCart.products.push(productId);
   existingCart.save();
-  return res.json({ message: "Product successfully added to your cart." });
+  return res.json(product);
 };
 
 
-// @route /api/cart
+// @route /api/cart/:id
 // @method DELETE
 const removeProductFromCart = async (req, res) => {
-  const productId = req.body.product;
+  const productId = req.params.id;
+
+  if (!isValidObjectId(productId))
+    return res.status(400).send({ message: "Invalid ID provided. Please check and try again." });
 
   if (!productId)
     return res.status(400).json({ message: "A product must be provided." });
@@ -89,7 +92,7 @@ const removeProductFromCart = async (req, res) => {
   // remove product from cart & save
   cart.products = cart.products.filter(product => !product.equals(productId));
   cart.save();
-  return res.json({ message: "Product successfully removed from your cart." });
+  return res.sendStatus(204);
 };
 
 
