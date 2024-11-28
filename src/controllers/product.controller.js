@@ -116,15 +116,16 @@ const updateProduct = async (req, res) => {
         { _id: id },
         { image, name, price, description, category },
         { new: true },
-      );
+      ).select("-__v").lean();
     } else {
       updatedProduct = await Product.findOneAndUpdate(
         { _id: id },
         { name, price, description, category },
         { new: true },
-      );
+      ).select("-__v").lean();
+
     }
-    
+
     return res.json({
       ...updatedProduct,
       createdBy: {
