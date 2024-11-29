@@ -66,7 +66,7 @@ e-commerce experience.
 - **`GET /api/cart`**                 ➜ Retrieve the current user's shopping cart
 - **`POST /api/cart`**                ➜ Add items to the cart
 - **`DELETE /api/cart/:id`**          ➜ Remove an item from the cart
-- **`DELETE /api/cart/pricing`**      ➜ Get pricing detail
+- **`GET /api/cart/pricing`**      ➜ Get pricing detail
 
 ## Project Links
 
