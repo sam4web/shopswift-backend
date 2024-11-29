@@ -46,7 +46,7 @@ e-commerce experience.
 ### Users
 
 - **`GET /api/users/:id`**            ➜ Get user details about user
-- **`DELETE /api/users/products`**    ➜ Get products created by user
+- **`GET /api/users/:id/products`**    ➜ Get products created by user
 
 ### Products
 
@@ -54,7 +54,7 @@ e-commerce experience.
 - **`GET /api/products/:id`**         ➜ Retrieve a specific product by ID
 - **`POST /api/products`**            ➜ Add a new product
 - **`PATCH /api/products/:id`**       ➜ Update product details
-- **`DELETE /api/products/:id`**      ➜ Delete a product
+- **`Delete /api/products/:id`**      ➜ Delete a product
 
 ### Orders
 
